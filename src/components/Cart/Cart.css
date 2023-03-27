@@ -1,0 +1,11 @@
+.cart {
+    margin-top: 50px;
+    background: #FFE0B3;
+    padding: 15px;
+    color: black;
+    height: 681px;
+    /* width: 80%; */
+    border-radius: 8px;
+    position: sticky;
+    top: 0px;
+}
