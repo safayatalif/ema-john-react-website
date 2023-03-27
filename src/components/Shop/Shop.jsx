@@ -20,7 +20,7 @@ const Shop = () => {
                 }
             </div>
             <div className="cart-container">
-                <h1>cart container</h1>
+                <p>cart container</p>
             </div>
         </div>
     );
