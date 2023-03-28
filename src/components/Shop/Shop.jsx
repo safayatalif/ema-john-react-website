@@ -2,33 +2,50 @@ import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import "./Shop.css"
 import Cart from './../Cart/Cart';
+import { addToDb, getShoppingCart } from '../../utilities/fakedb';
 
 const Shop = () => {
-    const [cart , setCart] =useState([]);
-    const handelAddToCart =(product) =>{
-        console.log(product);
-        const newCart = [...cart , product];
-        setCart(newCart);
-    }
     const [products, setProducts] = useState([]);
+    const [cart, setCart] = useState([]);
+    const handelAddToCart = (product) => {
+        console.log(product);
+        const newCart = [...cart, product];
+        setCart(newCart);
+        addToDb(product.id)
+    }
     useEffect(() => {
         fetch('products.json')
             .then(res => res.json()
                 .then(data => setProducts(data)))
     }, []);
+    useEffect(() => {
+        const storedCart = getShoppingCart();
+        const saveCart = [];
+        for (const id in storedCart) {
+            const addedProduct = products.find(product => product.id === id);
+            if (addedProduct) {
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                console.log(addedProduct , quantity);
+                saveCart.push(addedProduct);
+            }
+        }
+
+        setCart(saveCart);
+    }, [products]);
     return (
         <div className='shop-container'>
             <div className="product-container">
                 {
-                    products.map(product => <Product 
-                    key = {product.id}
-                    product = {product}
-                    handelAddToCart ={handelAddToCart}
+                    products.map(product => <Product
+                        key={product.id}
+                        product={product}
+                        handelAddToCart={handelAddToCart}
                     ></Product>)
                 }
             </div>
             <div className="cart-container">
-                <Cart cart ={cart}></Cart>
+                <Cart cart={cart}></Cart>
             </div>
         </div>
     );
