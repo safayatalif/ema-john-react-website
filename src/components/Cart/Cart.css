@@ -3,9 +3,10 @@
     background: #FFE0B3;
     padding: 15px;
     color: black;
-    height: 681px;
-    /* width: 80%; */
+    height: 400px;
+    width: 145px;
     border-radius: 8px;
     position: sticky;
     top: 0px;
+    margin: auto;
 }
